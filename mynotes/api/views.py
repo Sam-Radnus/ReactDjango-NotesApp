@@ -68,4 +68,12 @@ def deleteNote(request,pk):
     note.delete()
     return Response('Node was Deleted')
 
+@api_view(['POST'])
+def createNote(request):
+    data=request.data
+    note=Note.objects.create(
+        body=data['body']
+    )
+    serializer=NoteSerializer(note,many=False)
+    return Response(serializer.data)
 
